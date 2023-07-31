@@ -1,0 +1,13 @@
+.Header-Tab {
+  background-color: #282c34;
+  min-height: 10vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-Text {
+  color: white;
+  font-size: 1rem;
+}
