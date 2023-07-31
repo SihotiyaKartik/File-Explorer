@@ -20,7 +20,50 @@
 
 .FileExplorerBox {
   border: 1px solid black;
-  width: 50%;
+  width: 30%;
   height: 50%;
   margin-top: 10vh;
+}
+
+.icon {
+  align-self: center;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.FileExplorerBoxHeader {
+  padding: 10px;
+  width: 100% - 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.FileExplorerBoxFooter {
+  padding: 10px;
+}
+
+.FileName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SubFile {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.SubFile:hover {
+  cursor: pointer;
+}
+
+.FileExplorerContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.EditFileIcon {
+  align-self: center;
 }

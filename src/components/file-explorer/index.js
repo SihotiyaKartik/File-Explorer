@@ -1,20 +1,17 @@
-import { useState } from "react"
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai"
+import FileExplorerHeader from "./FileExplorerHeader"
+import FileExplorerFooter from "./FileExplorerFooter"
+import { ToggleFooterProvider } from "../../context/ToggleFooter"
+
 const FileExplorer = (props) => {
-  const [data, setFileData] = useState(props.data)
-  const [editMode, setEditMode] = useState(false)
-
-  const handleEdit = () => {
-    setEditMode(!editMode)
-  }
-
   return (
-    <div className={props.className}>
-      <div className="FileExplorerBox">
-        <AiOutlineDown />
-        <div>File</div>
+    <ToggleFooterProvider>
+      <div className={props.className}>
+        <div className="FileExplorerBox">
+          <FileExplorerHeader />
+          <FileExplorerFooter data={props.data} />
+        </div>
       </div>
-    </div>
+    </ToggleFooterProvider>
   )
 }
 
