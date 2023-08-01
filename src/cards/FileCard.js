@@ -12,7 +12,8 @@ import { useState } from "react"
 const FileCard = ({ data }) => {
   const [currentFileName, setCurrentFileName] = useState(data?.name)
   const { currentFileId, setCurrentFileId } = useCurrentFileContext()
-  const { fileNameEditOpen, handleFileNameChange } = useFileEditContext()
+  const { fileNameEditOpen, handleFileNameChange, handleFileStateChange } =
+    useFileEditContext()
   const marginLeft = `${(data?.level - 1) * 10}px`
 
   const handleFileName = (value) => {
@@ -49,7 +50,7 @@ const FileCard = ({ data }) => {
               onKeyDown={handleFileNameChange}
             />
           ) : (
-            <>{data?.name}</>
+            <div onClick={handleFileStateChange}>{data?.name}</div>
           )}
         </div>
       </div>

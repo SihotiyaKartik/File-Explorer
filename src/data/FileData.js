@@ -3,6 +3,7 @@ export const FileData = {
   id: 0,
   type: "folder",
   level: 0,
+  isOpen: true,
   children: [
     {
       name: "index.css",

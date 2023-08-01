@@ -17,10 +17,22 @@ const FileEditProvider = ({ children }) => {
     if (fileData?.id === id) {
       return { ...fileData, name: value }
     } else if (fileData?.children && fileData?.children.length > 0) {
-      const updateChildData = fileData?.children?.map((item) =>
+      const updatedChildData = fileData?.children?.map((item) =>
         updateFileName(item, id, value)
       )
-      return { ...fileData, children: updateChildData }
+      return { ...fileData, children: updatedChildData }
+    }
+    return fileData
+  }
+
+  const updateFileState = (fileData, id) => {
+    if (fileData?.id === id) {
+      return { ...fileData, isOpen: !fileData?.isOpen }
+    } else if (fileData?.children && fileData?.children.length > 0) {
+      const updatedChildData = fileData?.children?.map((item) =>
+        updateFileState(item, id)
+      )
+      return { ...fileData, children: updatedChildData }
     }
     return fileData
   }
@@ -37,13 +49,19 @@ const FileEditProvider = ({ children }) => {
     }
   }
 
+  const handleFileStateChange = () => {
+    const updatedFileData = updateFileState(fileData, currentFileId)
+    setFileData(updatedFileData)
+  }
+
   return (
     <FileEditContext.Provider
       value={{
         fileData,
         fileNameEditOpen,
         handleFileNameEdit,
-        handleFileNameChange
+        handleFileNameChange,
+        handleFileStateChange
       }}
     >
       {children}
