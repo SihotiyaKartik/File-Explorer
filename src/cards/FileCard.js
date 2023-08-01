@@ -1,44 +1,63 @@
-import { useState } from "react"
-import { AiFillFile, AiFillFolder, AiFillDelete } from "react-icons/ai"
-import { FiEdit } from "react-icons/fi"
+import {
+  AiFillFile,
+  AiFillFolder,
+  AiFillDelete,
+  AiOutlineFolderOpen
+} from "react-icons/ai"
+import EditIcon from "./EditIcon"
+import { useCurrentFileContext } from "../context/CurrentFile"
+import { useFileEditContext } from "../context/FileEdit"
 
 const FileCard = ({ data }) => {
-  const [showEditIcons, setShowEditIcons] = useState(false)
-  const [currentId, setCurrentId] = useState(-1)
-
+  const { currentFileId, setCurrentFileId } = useCurrentFileContext()
+  const { fileNameEditOpen } = useFileEditContext()
   const marginLeft = `${(data?.level - 1) * 10}px`
-
-  const handleCurrentId = (id) => {
-    setShowEditIcons(!showEditIcons)
-  }
 
   return (
     <div className="FileCard">
       <div
-        onMouseEnter={() => handleCurrentId(data?.id)}
+        onMouseEnter={() => setCurrentFileId(data?.id)}
         className="FileCardLeftSection"
         style={{ marginLeft }}
       >
         {data?.type === "folder" ? (
-          <AiFillFolder className="icon" size={20} />
+          <>
+            {data?.isOpen ? (
+              <AiOutlineFolderOpen className="icon" size={20} />
+            ) : (
+              <AiFillFolder className="icon" size={20} />
+            )}
+          </>
         ) : (
           <AiFillFile className="icon" size={20} />
         )}
-        <div className="SubFilesName">{data?.name}</div>
+        <div className="SubFilesName">
+          {fileNameEditOpen && currentFileId === data?.id ? (
+            <input value={data?.name} autoFocus />
+          ) : (
+            <>{data?.name}</>
+          )}
+        </div>
       </div>
       <div className="EditIcons">
-        {data?.type === "folder" ? (
+        {data?.id === currentFileId ? (
           <>
-            <FiEdit size={20} />
-            <AiFillFile size={20} />
-            <AiFillFolder size={20} />
-            <AiFillDelete size={20} />
+            {data?.type === "folder" ? (
+              <>
+                <EditIcon />
+                <AiFillFile size={20} />
+                <AiFillFolder size={20} />
+                <AiFillDelete size={20} />
+              </>
+            ) : (
+              <>
+                <EditIcon />
+                <AiFillDelete size={20} />
+              </>
+            )}
           </>
         ) : (
-          <>
-            <FiEdit size={20} />
-            <AiFillDelete size={20} />
-          </>
+          <></>
         )}
       </div>
     </div>
