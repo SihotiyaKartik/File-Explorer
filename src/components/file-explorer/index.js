@@ -2,13 +2,13 @@ import FileExplorerHeader from "./FileExplorerHeader"
 import FileExplorerFooter from "./FileExplorerFooter"
 import { ToggleFooterProvider } from "../../context/ToggleFooter"
 
-const FileExplorer = (props) => {
+const FileExplorer = ({ data }) => {
   return (
     <ToggleFooterProvider>
-      <div className={props.className}>
+      <div className="FileExplorerWindow">
         <div className="FileExplorerBox">
           <FileExplorerHeader />
-          <FileExplorerFooter data={props.data} />
+          <FileExplorerFooter data={data} />
         </div>
       </div>
     </ToggleFooterProvider>

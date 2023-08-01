@@ -21,7 +21,7 @@
 .FileExplorerBox {
   border: 1px solid black;
   width: 30%;
-  height: 50%;
+  height: 50vh;
   margin-top: 10vh;
 }
 
@@ -36,6 +36,7 @@
 .FileExplorerBoxHeader {
   padding: 10px;
   width: 100% - 10px;
+  height: 5%;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid black;
@@ -43,6 +44,7 @@
 
 .FileExplorerBoxFooter {
   padding: 10px;
+  max-height: 95%;
 }
 
 .FileName {
@@ -66,4 +68,14 @@
 
 .EditFileIcon {
   align-self: center;
+}
+
+.FileCardLeftSection {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.FileCard {
+  display: flex;
+  justify-content: space-between;
 }

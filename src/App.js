@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <FileExplorer className="FileExplorerWindow" data={FileData} />
+      <FileExplorer data={FileData} />
     </div>
   )
 }
