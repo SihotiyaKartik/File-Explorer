@@ -14,46 +14,12 @@ export const FileData = {
       children: []
     },
     {
-      name: "chart",
-      id: 2,
-      type: "folder",
-      level: 1,
-      isOpen: false,
-      children: [
-        {
-          name: "comp1.js",
-          id: 5,
-          type: "file",
-          level: 2,
-          isOpen: false,
-          children: []
-        },
-        {
-          name: "comp2.js",
-          id: 6,
-          type: "file",
-          level: 2,
-          isOpen: false,
-          children: []
-        }
-      ]
-    },
-    {
       name: "components",
-      id: 3,
-      type: "folder",
+      id: 2,
       level: 1,
-      isOpen: true,
-      children: [
-        {
-          name: "comp1.js",
-          id: 4,
-          type: "file",
-          level: 2,
-          isOpen: false,
-          children: []
-        }
-      ]
+      type: "folder",
+      isOpen: false,
+      children: []
     }
   ]
 }
