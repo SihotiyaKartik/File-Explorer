@@ -2,6 +2,7 @@ import { AiFillFile, AiFillFolder, AiOutlineFolderOpen } from "react-icons/ai"
 import EditIcon from "../icons/EditIcon"
 import DeleteIcon from "../icons/Delete"
 import AddFile from "../icons/AddFile"
+import AddFolder from "../icons/AddFolder"
 import { useCurrentFileContext } from "../context/CurrentFile"
 import { useFileEditContext } from "../context/FileEdit"
 import { useState } from "react"
@@ -64,7 +65,7 @@ const FileCard = ({ data }) => {
               <>
                 <EditIcon />
                 <AddFile />
-                <AiFillFolder size={20} />
+                <AddFolder />
                 <DeleteIcon />
               </>
             ) : (

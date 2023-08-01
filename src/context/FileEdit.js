@@ -9,26 +9,41 @@ const FileEditProvider = ({ children }) => {
   const [fileData, setFileData] = useState(FileData)
   const [fileNameEditOpen, setFileNameEditOpen] = useState(false)
   const [isAddFileOpen, setAddFileOpen] = useState(false)
+  const [isAddFolderOpen, setAddFolderOpen] = useState(false)
 
   const handleFileNameEdit = () => {
+    setAddFolderOpen(false)
+    setAddFileOpen(false)
     setFileNameEditOpen(!fileNameEditOpen)
   }
 
-  const addFile = (fileData, id, level, name) => {
+  const handleAddFileOpen = () => {
+    setAddFolderOpen(false)
+    setFileNameEditOpen(false)
+    setAddFileOpen(!isAddFileOpen)
+  }
+
+  const handleAddFolderOpen = () => {
+    setAddFileOpen(false)
+    setFileNameEditOpen(false)
+    setAddFolderOpen(!isAddFolderOpen)
+  }
+
+  const addFile = (fileData, id, level, name, fileType) => {
     const filePayload = {
       id: generateUniqueId(),
       name: name,
-      type: "file",
+      type: fileType,
       children: [],
       level: level + 1,
-      isOpen: false
+      isOpen: fileType === "folder"
     }
     if (fileData?.id === id) {
       fileData?.children.push(filePayload)
       return fileData
     } else if (fileData?.children && fileData?.children.length > 0) {
       const updatedChildData = fileData?.children?.map((item) =>
-        addFile(item, id, item?.level, name)
+        addFile(item, id, item?.level, name, fileType)
       )
       return { ...fileData, children: updatedChildData }
     }
@@ -71,14 +86,19 @@ const FileEditProvider = ({ children }) => {
     return fileData
   }
 
-  const handleAddFileOpen = () => {
-    setAddFileOpen(!isAddFileOpen)
-  }
+  const handleAddFile = (level, name, fileType) => {
+    {
+      fileType === "file" ? setAddFileOpen(false) : setAddFolderOpen(false)
+    }
 
-  const handleAddFile = (level, name) => {
-    setAddFileOpen(false)
     if (name.length > 0) {
-      const updatedFileData = addFile(fileData, currentFileId, level, name)
+      const updatedFileData = addFile(
+        fileData,
+        currentFileId,
+        level,
+        name,
+        fileType
+      )
       setFileData(updatedFileData)
     }
   }
@@ -111,9 +131,11 @@ const FileEditProvider = ({ children }) => {
         fileData,
         fileNameEditOpen,
         isAddFileOpen,
+        isAddFolderOpen,
         handleDelete,
         handleAddFile,
         handleAddFileOpen,
+        handleAddFolderOpen,
         handleFileNameEdit,
         handleFileNameChange,
         handleFileStateChange
