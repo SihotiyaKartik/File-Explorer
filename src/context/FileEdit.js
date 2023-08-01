@@ -37,6 +37,18 @@ const FileEditProvider = ({ children }) => {
     return fileData
   }
 
+  const deleteData = (fileData, id) => {
+    if (fileData?.id === id) {
+      return null
+    } else if (fileData?.children && fileData?.children.length > 0) {
+      const updatedChildData = fileData?.children
+        .map((item) => deleteData(item, id))
+        .filter((item) => item !== null)
+      return { ...fileData, children: updatedChildData }
+    }
+    return fileData
+  }
+
   const handleFileNameChange = (event) => {
     if (event.key === "Enter") {
       const updatedFileData = updateFileName(
@@ -54,11 +66,17 @@ const FileEditProvider = ({ children }) => {
     setFileData(updatedFileData)
   }
 
+  const handleDelete = () => {
+    const updatedFileData = deleteData(fileData, currentFileId)
+    setFileData(updatedFileData)
+  }
+
   return (
     <FileEditContext.Provider
       value={{
         fileData,
         fileNameEditOpen,
+        handleDelete,
         handleFileNameEdit,
         handleFileNameChange,
         handleFileStateChange
