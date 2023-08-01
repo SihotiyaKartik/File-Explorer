@@ -1,7 +1,9 @@
+import constants from "../../constants/constants"
+
 const Header = () => {
   return (
     <div className="Header-Tab">
-      <p className="Header-Text">File Explorer</p>
+      <p className="Header-Text">{constants.FILE_EXPLORER}</p>
     </div>
   )
 }

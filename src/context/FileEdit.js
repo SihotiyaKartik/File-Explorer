@@ -87,9 +87,7 @@ const FileEditProvider = ({ children }) => {
   }
 
   const handleAddFile = (level, name, fileType) => {
-    {
-      fileType === "file" ? setAddFileOpen(false) : setAddFolderOpen(false)
-    }
+    fileType === "file" ? setAddFileOpen(false) : setAddFolderOpen(false)
 
     if (name.length > 0) {
       const updatedFileData = addFile(

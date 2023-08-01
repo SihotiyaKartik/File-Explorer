@@ -25,11 +25,11 @@ const FileExplorerHeader = () => {
             onClick={toggleDisplayFiles}
           />
         )}
-        <div className="">Files</div>
+        <div className="text">Files</div>
       </div>
-      <div className="FileType">
-        <AiFillFile size={20} />
-        <AiFillFolder size={20} />
+      <div>
+        <AiFillFile className="icon" size={20} />
+        <AiFillFolder className="icon" size={20} />
       </div>
     </div>
   )

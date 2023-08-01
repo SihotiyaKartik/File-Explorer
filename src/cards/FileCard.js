@@ -6,6 +6,7 @@ import AddFolder from "../icons/AddFolder"
 import { useCurrentFileContext } from "../context/CurrentFile"
 import { useFileEditContext } from "../context/FileEdit"
 import { useState } from "react"
+import constants from "../constants/constants"
 
 const FileCard = ({ data }) => {
   const [currentFileName, setCurrentFileName] = useState(data?.name)
@@ -16,7 +17,7 @@ const FileCard = ({ data }) => {
     handleFileNameChange,
     handleFileStateChange
   } = useFileEditContext()
-  const marginLeft = `${(data?.level - 1) * 10}px`
+  const marginLeft = `${(data?.level - 1) * 15}px`
 
   const handleFileName = (value) => {
     setCurrentFileName(value)
@@ -36,13 +37,25 @@ const FileCard = ({ data }) => {
         {data?.type === "folder" ? (
           <>
             {data?.isOpen ? (
-              <AiOutlineFolderOpen className="icon" size={20} />
+              <AiOutlineFolderOpen
+                color={constants.PRIMARY_COLOR}
+                className="icon"
+                size={20}
+              />
             ) : (
-              <AiFillFolder className="icon" size={20} />
+              <AiFillFolder
+                color={constants.PRIMARY_COLOR}
+                className="icon"
+                size={20}
+              />
             )}
           </>
         ) : (
-          <AiFillFile className="icon" size={20} />
+          <AiFillFile
+            color={constants.PRIMARY_COLOR}
+            className="icon"
+            size={20}
+          />
         )}
         <div className="SubFilesName">
           {fileNameEditOpen && currentFileId === data?.id ? (
@@ -54,7 +67,9 @@ const FileCard = ({ data }) => {
               onKeyDown={handleFileNameChange}
             />
           ) : (
-            <div onClick={handleFileStateChange}>{data?.name}</div>
+            <div className="text" onClick={handleFileStateChange}>
+              {data?.name}
+            </div>
           )}
         </div>
       </div>

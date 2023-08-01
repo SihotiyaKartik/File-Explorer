@@ -1,9 +1,17 @@
 import { AiFillFolder } from "react-icons/ai"
 import { useFileEditContext } from "../context/FileEdit"
+import constants from "../constants/constants"
 const AddFolder = () => {
-  const { handleAddFolderOpen } = useFileEditContext()
+  const { isAddFolderOpen, handleAddFolderOpen } = useFileEditContext()
   return (
-    <AiFillFolder onClick={handleAddFolderOpen} size={20} className="icon" />
+    <AiFillFolder
+      color={
+        isAddFolderOpen ? constants.SECONDARY_COLOR : constants.PRIMARY_COLOR
+      }
+      onClick={handleAddFolderOpen}
+      size={20}
+      className="icon"
+    />
   )
 }
 

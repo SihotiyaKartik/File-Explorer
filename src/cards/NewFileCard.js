@@ -5,7 +5,7 @@ import { useFileEditContext } from "../context/FileEdit"
 const NewFileCard = ({ fileType, data }) => {
   const [fileName, setFileName] = useState("")
   const { handleAddFile, handleAddFileOpen } = useFileEditContext()
-  const marginLeft = `${(data?.level - 1) * 10}px`
+  const marginLeft = `${(data?.level - 1) * 15}px`
   const handleFileName = (value) => {
     setFileName(value)
   }
