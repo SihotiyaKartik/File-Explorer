@@ -1,13 +1,11 @@
 import { AiFillFile } from "react-icons/ai"
 import { useFileEditContext } from "../context/FileEdit"
-import constants from "../constants/constants"
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../constants/constants"
 const AddFile = () => {
   const { isAddFileOpen, handleAddFileOpen } = useFileEditContext()
   return (
     <AiFillFile
-      color={
-        isAddFileOpen ? constants.SECONDARY_COLOR : constants.PRIMARY_COLOR
-      }
+      color={isAddFileOpen ? SECONDARY_COLOR : PRIMARY_COLOR}
       onClick={handleAddFileOpen}
       size={20}
       className="icon"

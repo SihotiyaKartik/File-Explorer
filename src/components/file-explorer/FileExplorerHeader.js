@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai"
 import { useToggleFooterContext } from "../../context/ToggleFooter"
 import { useFileEditContext } from "../../context/FileEdit"
-import constants from "../../constants/constants"
+import { PRIMARY_COLOR, SECONDARY_COLOR } from "../../constants/constants"
 
 const FileExplorerHeader = () => {
   const { displayAllFiles, toggleDisplayFiles } = useToggleFooterContext()
@@ -37,21 +37,13 @@ const FileExplorerHeader = () => {
       </div>
       <div>
         <AiFillFile
-          color={
-            isAddMainFileOpen
-              ? constants.SECONDARY_COLOR
-              : constants.PRIMARY_COLOR
-          }
+          color={isAddMainFileOpen ? SECONDARY_COLOR : PRIMARY_COLOR}
           onClick={handleMainFileOpen}
           className="icon"
           size={20}
         />
         <AiFillFolder
-          color={
-            isAddMainFolderOpen
-              ? constants.SECONDARY_COLOR
-              : constants.PRIMARY_COLOR
-          }
+          color={isAddMainFolderOpen ? SECONDARY_COLOR : PRIMARY_COLOR}
           onClick={handleMainFolderOpen}
           className="icon"
           size={20}

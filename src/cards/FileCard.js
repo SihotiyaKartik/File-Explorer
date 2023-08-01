@@ -6,7 +6,7 @@ import AddFolder from "../icons/AddFolder"
 import { useCurrentFileContext } from "../context/CurrentFile"
 import { useFileEditContext } from "../context/FileEdit"
 import { useState } from "react"
-import constants from "../constants/constants"
+import { PRIMARY_COLOR } from "../constants/constants"
 
 const FileCard = ({ data }) => {
   const [currentFileName, setCurrentFileName] = useState(data?.name)
@@ -45,24 +45,16 @@ const FileCard = ({ data }) => {
           <>
             {data?.isOpen ? (
               <AiOutlineFolderOpen
-                color={constants.PRIMARY_COLOR}
+                color={PRIMARY_COLOR}
                 className="icon"
                 size={20}
               />
             ) : (
-              <AiFillFolder
-                color={constants.PRIMARY_COLOR}
-                className="icon"
-                size={20}
-              />
+              <AiFillFolder color={PRIMARY_COLOR} className="icon" size={20} />
             )}
           </>
         ) : (
-          <AiFillFile
-            color={constants.PRIMARY_COLOR}
-            className="icon"
-            size={20}
-          />
+          <AiFillFile color={PRIMARY_COLOR} className="icon" size={20} />
         )}
         <div className="SubFilesName">
           {fileNameEditOpen && currentFileId === data?.id ? (
