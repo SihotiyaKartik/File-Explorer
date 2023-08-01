@@ -2,11 +2,11 @@ import { useState } from "react"
 import { TiTick } from "react-icons/ti"
 import { RxCross1 } from "react-icons/rx"
 import { useFileEditContext } from "../context/FileEdit"
-const NewFileCard = ({ fileType, data }) => {
+const NewMainFileCard = ({ fileType }) => {
   const [fileName, setFileName] = useState("")
-  const { handleAddFile, handleAddFileOpen, handleAddFolderOpen } =
+  const { handleAddMainFile, handleAddMainFileOpen, handleAddMainFolderOpen } =
     useFileEditContext()
-  const marginLeft = `${(data?.level - 1) * 15}px`
+
   const handleFileName = (value) => {
     setFileName(value)
   }
@@ -19,18 +19,19 @@ const NewFileCard = ({ fileType, data }) => {
           value={fileName}
           onChange={(e) => handleFileName(e.target.value)}
           autoFocus
-          style={{ marginLeft }}
         />
       </div>
       <div className="EditIcons">
         <TiTick
-          onClick={() => handleAddFile(data?.level, fileName, fileType)}
+          onClick={() => handleAddMainFile(fileName, fileType)}
           size={25}
           className="icon"
         />
         <RxCross1
           onClick={
-            fileType === "file" ? handleAddFileOpen : handleAddFolderOpen
+            fileType === "file"
+              ? handleAddMainFileOpen
+              : handleAddMainFolderOpen
           }
           size={20}
           className="icon"
@@ -40,4 +41,4 @@ const NewFileCard = ({ fileType, data }) => {
   )
 }
 
-export default NewFileCard
+export default NewMainFileCard

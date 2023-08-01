@@ -13,6 +13,9 @@ const FileCard = ({ data }) => {
   const { currentFileId, setCurrentFileId } = useCurrentFileContext()
   const {
     isAddFileOpen,
+    isAddMainFileOpen,
+    isAddFolderOpen,
+    isAddMainFolderOpen,
     fileNameEditOpen,
     handleFileNameChange,
     handleFileStateChange
@@ -27,7 +30,11 @@ const FileCard = ({ data }) => {
     <div className="FileCard">
       <div
         onMouseEnter={() =>
-          !fileNameEditOpen && !isAddFileOpen
+          !fileNameEditOpen &&
+          !isAddFileOpen &&
+          !isAddMainFileOpen &&
+          !isAddFolderOpen &&
+          !isAddMainFolderOpen
             ? setCurrentFileId(data?.id)
             : null
         }

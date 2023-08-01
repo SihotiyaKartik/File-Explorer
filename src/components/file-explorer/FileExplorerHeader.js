@@ -5,9 +5,17 @@ import {
   AiFillFolder
 } from "react-icons/ai"
 import { useToggleFooterContext } from "../../context/ToggleFooter"
+import { useFileEditContext } from "../../context/FileEdit"
+import constants from "../../constants/constants"
 
 const FileExplorerHeader = () => {
   const { displayAllFiles, toggleDisplayFiles } = useToggleFooterContext()
+  const {
+    isAddMainFileOpen,
+    isAddMainFolderOpen,
+    handleMainFileOpen,
+    handleMainFolderOpen
+  } = useFileEditContext()
 
   return (
     <div className="FileExplorerBoxHeader">
@@ -28,8 +36,26 @@ const FileExplorerHeader = () => {
         <div className="text">Files</div>
       </div>
       <div>
-        <AiFillFile className="icon" size={20} />
-        <AiFillFolder className="icon" size={20} />
+        <AiFillFile
+          color={
+            isAddMainFileOpen
+              ? constants.SECONDARY_COLOR
+              : constants.PRIMARY_COLOR
+          }
+          onClick={handleMainFileOpen}
+          className="icon"
+          size={20}
+        />
+        <AiFillFolder
+          color={
+            isAddMainFolderOpen
+              ? constants.SECONDARY_COLOR
+              : constants.PRIMARY_COLOR
+          }
+          onClick={handleMainFolderOpen}
+          className="icon"
+          size={20}
+        />
       </div>
     </div>
   )

@@ -5,11 +5,13 @@ import generateUniqueId from "../utils/GenerateUniqueId"
 const FileEditContext = createContext()
 
 const FileEditProvider = ({ children }) => {
-  const { currentFileId } = useCurrentFileContext()
+  const { currentFileId, setCurrentFileId } = useCurrentFileContext()
   const [fileData, setFileData] = useState(FileData)
   const [fileNameEditOpen, setFileNameEditOpen] = useState(false)
   const [isAddFileOpen, setAddFileOpen] = useState(false)
   const [isAddFolderOpen, setAddFolderOpen] = useState(false)
+  const [isAddMainFileOpen, setAddMainFileOpen] = useState(false)
+  const [isAddMainFolderOpen, setAddMainFolderOpen] = useState(false)
 
   const handleFileNameEdit = () => {
     setAddFolderOpen(false)
@@ -27,6 +29,18 @@ const FileEditProvider = ({ children }) => {
     setAddFileOpen(false)
     setFileNameEditOpen(false)
     setAddFolderOpen(!isAddFolderOpen)
+  }
+
+  const handleMainFileOpen = () => {
+    setAddMainFolderOpen(false)
+    setCurrentFileId(fileData?.id)
+    setAddMainFileOpen(!isAddMainFileOpen)
+  }
+
+  const handleMainFolderOpen = () => {
+    setAddMainFileOpen(false)
+    setCurrentFileId(fileData?.id)
+    setAddMainFolderOpen(!isAddMainFolderOpen)
   }
 
   const addFile = (fileData, id, level, name, fileType) => {
@@ -101,8 +115,22 @@ const FileEditProvider = ({ children }) => {
     }
   }
 
+  const handleAddMainFile = (name, fileType) => {
+    fileType === "file"
+      ? setAddMainFileOpen(false)
+      : setAddMainFolderOpen(false)
+    if (name.length > 0) {
+      const updatedFileData = addFile(fileData, fileData?.id, 0, name, fileType)
+      setFileData(updatedFileData)
+    }
+  }
+
   const handleFileNameChange = (event) => {
     if (event.key === "Enter") {
+      if (event.target.value === "") {
+        alert("Name can't be empty")
+        return
+      }
       const updatedFileData = updateFileName(
         fileData,
         currentFileId,
@@ -130,9 +158,14 @@ const FileEditProvider = ({ children }) => {
         fileNameEditOpen,
         isAddFileOpen,
         isAddFolderOpen,
+        isAddMainFileOpen,
+        isAddMainFolderOpen,
         handleDelete,
         handleAddFile,
+        handleAddMainFile,
         handleAddFileOpen,
+        handleMainFileOpen,
+        handleMainFolderOpen,
         handleAddFolderOpen,
         handleFileNameEdit,
         handleFileNameChange,

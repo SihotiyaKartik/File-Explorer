@@ -18,9 +18,12 @@ const RenderFiles = ({ data }) => {
           {isAddFolderOpen && currentFileId === item?.id && (
             <NewFileCard fileType="folder" data={item} />
           )}
+
           {item?.children && item?.isOpen && (
             <RenderFiles data={item?.children} />
           )}
+
+          {/* {isAddMainFolderOpen && <NewMainFileCard fileType="folder" />} */}
         </div>
       ))}
     </div>
