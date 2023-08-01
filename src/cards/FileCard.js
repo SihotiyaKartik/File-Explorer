@@ -1,11 +1,7 @@
-import {
-  AiFillFile,
-  AiFillFolder,
-  AiFillDelete,
-  AiOutlineFolderOpen
-} from "react-icons/ai"
+import { AiFillFile, AiFillFolder, AiOutlineFolderOpen } from "react-icons/ai"
 import EditIcon from "../icons/EditIcon"
 import DeleteIcon from "../icons/Delete"
+import AddFile from "../icons/AddFile"
 import { useCurrentFileContext } from "../context/CurrentFile"
 import { useFileEditContext } from "../context/FileEdit"
 import { useState } from "react"
@@ -13,8 +9,12 @@ import { useState } from "react"
 const FileCard = ({ data }) => {
   const [currentFileName, setCurrentFileName] = useState(data?.name)
   const { currentFileId, setCurrentFileId } = useCurrentFileContext()
-  const { fileNameEditOpen, handleFileNameChange, handleFileStateChange } =
-    useFileEditContext()
+  const {
+    isAddFileOpen,
+    fileNameEditOpen,
+    handleFileNameChange,
+    handleFileStateChange
+  } = useFileEditContext()
   const marginLeft = `${(data?.level - 1) * 10}px`
 
   const handleFileName = (value) => {
@@ -25,7 +25,9 @@ const FileCard = ({ data }) => {
     <div className="FileCard">
       <div
         onMouseEnter={() =>
-          !fileNameEditOpen ? setCurrentFileId(data?.id) : null
+          !fileNameEditOpen && !isAddFileOpen
+            ? setCurrentFileId(data?.id)
+            : null
         }
         className="FileCardLeftSection"
         style={{ marginLeft }}
@@ -61,7 +63,7 @@ const FileCard = ({ data }) => {
             {data?.type === "folder" ? (
               <>
                 <EditIcon />
-                <AiFillFile size={20} />
+                <AddFile />
                 <AiFillFolder size={20} />
                 <DeleteIcon />
               </>

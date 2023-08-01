@@ -1,16 +1,38 @@
 import React, { createContext, useContext, useState } from "react"
 import { FileData } from "../data/FileData"
 import { useCurrentFileContext } from "./CurrentFile"
-
+import generateUniqueId from "../utils/GenerateUniqueId"
 const FileEditContext = createContext()
 
 const FileEditProvider = ({ children }) => {
   const { currentFileId } = useCurrentFileContext()
   const [fileData, setFileData] = useState(FileData)
   const [fileNameEditOpen, setFileNameEditOpen] = useState(false)
+  const [isAddFileOpen, setAddFileOpen] = useState(false)
 
   const handleFileNameEdit = () => {
     setFileNameEditOpen(!fileNameEditOpen)
+  }
+
+  const addFile = (fileData, id, level, name) => {
+    const filePayload = {
+      id: generateUniqueId(),
+      name: name,
+      type: "file",
+      children: [],
+      level: level + 1,
+      isOpen: false
+    }
+    if (fileData?.id === id) {
+      fileData?.children.push(filePayload)
+      return fileData
+    } else if (fileData?.children && fileData?.children.length > 0) {
+      const updatedChildData = fileData?.children?.map((item) =>
+        addFile(item, id, item?.level, name)
+      )
+      return { ...fileData, children: updatedChildData }
+    }
+    return fileData
   }
 
   const updateFileName = (fileData, id, value) => {
@@ -49,6 +71,18 @@ const FileEditProvider = ({ children }) => {
     return fileData
   }
 
+  const handleAddFileOpen = () => {
+    setAddFileOpen(!isAddFileOpen)
+  }
+
+  const handleAddFile = (level, name) => {
+    setAddFileOpen(false)
+    if (name.length > 0) {
+      const updatedFileData = addFile(fileData, currentFileId, level, name)
+      setFileData(updatedFileData)
+    }
+  }
+
   const handleFileNameChange = (event) => {
     if (event.key === "Enter") {
       const updatedFileData = updateFileName(
@@ -76,7 +110,10 @@ const FileEditProvider = ({ children }) => {
       value={{
         fileData,
         fileNameEditOpen,
+        isAddFileOpen,
         handleDelete,
+        handleAddFile,
+        handleAddFileOpen,
         handleFileNameEdit,
         handleFileNameChange,
         handleFileStateChange
