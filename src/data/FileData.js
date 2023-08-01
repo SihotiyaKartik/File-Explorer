@@ -1,6 +1,6 @@
 export const FileData = {
   name: "File",
-  id: 1,
+  id: 0,
   type: "folder",
   level: 0,
   children: [

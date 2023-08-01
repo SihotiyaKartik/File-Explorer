@@ -7,16 +7,24 @@ import {
 import EditIcon from "./EditIcon"
 import { useCurrentFileContext } from "../context/CurrentFile"
 import { useFileEditContext } from "../context/FileEdit"
+import { useState } from "react"
 
 const FileCard = ({ data }) => {
+  const [currentFileName, setCurrentFileName] = useState(data?.name)
   const { currentFileId, setCurrentFileId } = useCurrentFileContext()
-  const { fileNameEditOpen } = useFileEditContext()
+  const { fileNameEditOpen, handleFileNameChange } = useFileEditContext()
   const marginLeft = `${(data?.level - 1) * 10}px`
+
+  const handleFileName = (value) => {
+    setCurrentFileName(value)
+  }
 
   return (
     <div className="FileCard">
       <div
-        onMouseEnter={() => setCurrentFileId(data?.id)}
+        onMouseEnter={() =>
+          !fileNameEditOpen ? setCurrentFileId(data?.id) : null
+        }
         className="FileCardLeftSection"
         style={{ marginLeft }}
       >
@@ -33,7 +41,13 @@ const FileCard = ({ data }) => {
         )}
         <div className="SubFilesName">
           {fileNameEditOpen && currentFileId === data?.id ? (
-            <input value={data?.name} autoFocus />
+            <input
+              type="text"
+              value={currentFileName}
+              autoFocus
+              onChange={(e) => handleFileName(e.target.value)}
+              onKeyDown={handleFileNameChange}
+            />
           ) : (
             <>{data?.name}</>
           )}
