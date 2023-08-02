@@ -92,3 +92,15 @@
 .text:hover {
   color: rgb(101, 255, 219);
 }
+
+@media screen and (max-width: 576px) {
+  .FileExplorerBox {
+    width: 90vw;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .FileExplorerBox {
+    width: 60vw;
+  }
+}
